@@ -431,7 +431,7 @@ const StudentManagement = () => {
             </DialogTitle>
           </DialogHeader>
           <StudentForm
-            student={isEditMode ? selectedStudent : undefined}
+            student={isEditMode ? selectedStudent || undefined : undefined}
             onSubmit={handleFormSubmit}
             onCancel={handleFormCancel}
           />
