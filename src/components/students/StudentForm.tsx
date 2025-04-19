@@ -76,7 +76,7 @@ const StudentForm: React.FC<StudentFormProps> = ({
       setFormData({
         ...formData,
         [section]: {
-          ...formData[section as keyof Student],
+          ...((formData[section as keyof Student] as object) || {}),
           [field]: value,
         },
       });
