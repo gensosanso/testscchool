@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import StudentManagement from "./StudentManagement";
 import FinancialManagement from "./FinancialManagement";
+import TeacherManagement from "./TeacherManagement";
 
 interface AdminDashboardProps {
   userName?: string;
@@ -308,16 +309,7 @@ const AdminDashboard = ({
 
           {/* Teachers Tab */}
           <TabsContent value="teachers">
-            <Card>
-              <CardHeader>
-                <CardTitle>Teacher Management</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Teacher management interface would be displayed here.
-                </p>
-              </CardContent>
-            </Card>
+            <TeacherManagement />
           </TabsContent>
 
           {/* Finance Tab */}
