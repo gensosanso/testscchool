@@ -1,5 +1,6 @@
 import React from "react";
 import { Eye, Edit, Trash2 } from "lucide-react";
+import Link from "next/link";
 import {
   Table,
   TableBody,
@@ -79,10 +80,12 @@ const TeacherTable = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => onViewTeacher(teacher)}
+                  asChild
                   title="View teacher details"
                 >
-                  <Eye className="h-4 w-4" />
+                  <Link href={`/dashboard/teachers/${teacher.id}`}>
+                    <Eye className="h-4 w-4" />
+                  </Link>
                 </Button>
                 {onEditTeacher && (
                   <Button
