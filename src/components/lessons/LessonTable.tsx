@@ -88,9 +88,6 @@ export default function LessonTable({
               <SelectItem value="cancelled">Cancelled</SelectItem>
             </SelectContent>
           </Select>
-          <Link href="/dashboard/lessons/add" passHref>
-            <Button>Add Lesson</Button>
-          </Link>
         </div>
       </div>
 

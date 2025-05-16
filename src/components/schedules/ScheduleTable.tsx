@@ -87,9 +87,6 @@ export default function ScheduleTable({
             <option value="exam">Exam</option>
             <option value="event">Event</option>
           </select>
-          <Button onClick={() => router.push("/dashboard/schedule/add")}>
-            <Plus className="h-4 w-4 mr-2" /> Add Schedule
-          </Button>
         </div>
       </div>
 

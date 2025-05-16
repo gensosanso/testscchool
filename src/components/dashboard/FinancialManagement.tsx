@@ -69,6 +69,9 @@ export default function FinancialManagement() {
   const [activeTab, setActiveTab] = useState("overview");
   const [showNewPaymentDialog, setShowNewPaymentDialog] = useState(false);
   const [showNewInvoiceDialog, setShowNewInvoiceDialog] = useState(false);
+  const [searchPayments, setSearchPayments] = useState("");
+  const [searchInvoices, setSearchInvoices] = useState("");
+  const [searchInstallments, setSearchInstallments] = useState("");
 
   // Mock data for payments
   const recentPayments: Payment[] = [
@@ -284,6 +287,7 @@ export default function FinancialManagement() {
                       <TableHead>Amount</TableHead>
                       <TableHead>Date</TableHead>
                       <TableHead>Method</TableHead>
+                      <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -294,6 +298,17 @@ export default function FinancialManagement() {
                         <TableCell>${payment.amount}</TableCell>
                         <TableCell>{payment.date}</TableCell>
                         <TableCell>{payment.method}</TableCell>
+                        <TableCell>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() =>
+                              (window.location.href = `/dashboard/finance/${payment.id}`)
+                            }
+                          >
+                            View
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -315,6 +330,7 @@ export default function FinancialManagement() {
                       <TableHead>Amount</TableHead>
                       <TableHead>Due Date</TableHead>
                       <TableHead>Status</TableHead>
+                      <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -325,6 +341,17 @@ export default function FinancialManagement() {
                         <TableCell>${invoice.amount}</TableCell>
                         <TableCell>{invoice.dueDate}</TableCell>
                         <TableCell>{getStatusBadge(invoice.status)}</TableCell>
+                        <TableCell>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() =>
+                              (window.location.href = `/dashboard/finance/${invoice.id}`)
+                            }
+                          >
+                            View
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -364,6 +391,8 @@ export default function FinancialManagement() {
                       type="search"
                       placeholder="Search payments..."
                       className="pl-8 w-[250px]"
+                      value={searchPayments}
+                      onChange={(e) => setSearchPayments(e.target.value)}
                     />
                   </div>
                   <Button variant="outline">
@@ -397,7 +426,13 @@ export default function FinancialManagement() {
                         <TableCell>{payment.method}</TableCell>
                         <TableCell>{getStatusBadge(payment.status)}</TableCell>
                         <TableCell>
-                          <Button variant="ghost" size="sm">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() =>
+                              (window.location.href = `/dashboard/finance/${payment.id}`)
+                            }
+                          >
                             View
                           </Button>
                         </TableCell>
@@ -423,6 +458,8 @@ export default function FinancialManagement() {
                       type="search"
                       placeholder="Search invoices..."
                       className="pl-8 w-[250px]"
+                      value={searchInvoices}
+                      onChange={(e) => setSearchInvoices(e.target.value)}
                     />
                   </div>
                   <Button variant="outline">
@@ -457,7 +494,13 @@ export default function FinancialManagement() {
                         <TableCell>{getStatusBadge(invoice.status)}</TableCell>
                         <TableCell>
                           <div className="flex space-x-2">
-                            <Button variant="ghost" size="sm">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() =>
+                                (window.location.href = `/dashboard/finance/${invoice.id}`)
+                              }
+                            >
                               View
                             </Button>
                             <Button variant="ghost" size="sm">
@@ -503,6 +546,8 @@ export default function FinancialManagement() {
                       type="search"
                       placeholder="Search student..."
                       className="pl-8 w-[250px]"
+                      value={searchInstallments}
+                      onChange={(e) => setSearchInstallments(e.target.value)}
                     />
                   </div>
                 </div>
@@ -536,7 +581,13 @@ export default function FinancialManagement() {
                       <Badge className="bg-green-500">Active</Badge>
                     </TableCell>
                     <TableCell>
-                      <Button variant="ghost" size="sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() =>
+                          (window.location.href = `/dashboard/finance/PLAN-001`)
+                        }
+                      >
                         View
                       </Button>
                     </TableCell>
@@ -552,7 +603,13 @@ export default function FinancialManagement() {
                       <Badge className="bg-yellow-500">Due Soon</Badge>
                     </TableCell>
                     <TableCell>
-                      <Button variant="ghost" size="sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() =>
+                          (window.location.href = `/dashboard/finance/PLAN-002`)
+                        }
+                      >
                         View
                       </Button>
                     </TableCell>
@@ -568,7 +625,13 @@ export default function FinancialManagement() {
                       <Badge className="bg-red-500">Overdue</Badge>
                     </TableCell>
                     <TableCell>
-                      <Button variant="ghost" size="sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() =>
+                          (window.location.href = `/dashboard/finance/PLAN-003`)
+                        }
+                      >
                         View
                       </Button>
                     </TableCell>
@@ -584,7 +647,13 @@ export default function FinancialManagement() {
                       <Badge className="bg-blue-500">Completed</Badge>
                     </TableCell>
                     <TableCell>
-                      <Button variant="ghost" size="sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() =>
+                          (window.location.href = `/dashboard/finance/PLAN-004`)
+                        }
+                      >
                         View
                       </Button>
                     </TableCell>
