@@ -69,6 +69,11 @@ export default function DashboardLayout({
         icon: <User className="h-5 w-5" />,
       },
       {
+        name: "Parents",
+        href: "/dashboard/parents",
+        icon: <Users className="h-5 w-5" />,
+      },
+      {
         name: "Classes",
         href: "/dashboard/classes",
         icon: <BookOpen className="h-5 w-5" />,

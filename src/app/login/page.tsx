@@ -38,19 +38,19 @@ export default function LoginPage() {
       // Redirect to appropriate dashboard based on user type
       switch (userType) {
         case "administrator":
-          router.push("/dashboard/admin");
+          router.push("/dashboard");
           break;
         case "teacher":
-          router.push("/dashboard/teacher");
+          router.push("/dashboard");
           break;
         case "student":
-          router.push("/dashboard/student");
+          router.push("/dashboard");
           break;
         case "parent":
-          router.push("/dashboard/parent");
+          router.push("/dashboard");
           break;
         default:
-          router.push("/dashboard/admin");
+          router.push("/dashboard");
       }
     } catch (err) {
       setError("Failed to login. Please check your credentials.");
