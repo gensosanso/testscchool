@@ -20,9 +20,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
-import { getAllSubjects } from "@/services/subjectService";
-import { getAllTeachers } from "@/services/teacherService";
-import { getAllClasses } from "@/services/classService";
+import { subjectService } from "@/services/subjectService";
+import { teacherService } from "@/services/teacherService";
+import { classService } from "@/services/classService";
 
 export default function ExamDetailsPage({
   params,
@@ -52,9 +52,9 @@ export default function ExamDetailsPage({
         setExam(examData);
 
         // Fetch related data
-        const subjects = await getAllSubjects();
-        const teachers = await getAllTeachers();
-        const classes = await getAllClasses();
+        const subjects = await subjectService.getSubjects();
+        const teachers = await teacherService.getAll();
+        const classes = await classService.getClasses();
 
         const subject = subjects.find((s) => s.id === examData.subjectId);
         const teacher = teachers.find((t) => t.id === examData.teacherId);
