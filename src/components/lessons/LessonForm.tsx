@@ -16,9 +16,9 @@ import {
 } from "@/components/ui/select";
 import { ArrowLeft, Plus, X } from "lucide-react";
 import Link from "next/link";
-import { getAllSubjects } from "@/services/subjectService";
-import { getAllTeachers } from "@/services/teacherService";
-import { getAllClasses } from "@/services/classService";
+import { subjectService } from "@/services/subjectService";
+import { teacherService } from "@/services/teacherService";
+import { classService } from "@/services/classService";
 
 interface LessonFormProps {
   initialData?: Lesson;
@@ -68,9 +68,9 @@ export default function LessonForm({ initialData, onSubmit }: LessonFormProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const subjectsData = await getAllSubjects();
-        const teachersData = await getAllTeachers();
-        const classesData = await getAllClasses();
+        const subjectsData = await subjectService.getSubjects();
+        const teachersData = await teacherService.getAll();
+        const classesData = await classService.getClasses();
 
         setSubjects(subjectsData);
         setTeachers(teachersData);
