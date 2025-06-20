@@ -13,4 +13,17 @@ export interface Lesson {
   status: "scheduled" | "completed" | "cancelled";
   createdAt: string;
   updatedAt: string;
+  isExam?: boolean;
+  totalMarks?: number;
+  passingMarks?: number;
+  questions?: ExamQuestion[];
+}
+
+export interface ExamQuestion {
+  id: string;
+  question: string;
+  marks: number;
+  type: "multiple-choice" | "short-answer" | "essay" | "true-false";
+  options?: string[];
+  correctAnswer?: string;
 }

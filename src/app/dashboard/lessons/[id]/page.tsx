@@ -215,6 +215,95 @@ export default function LessonDetailsPage({
                 ))}
               </ul>
             </div>
+
+            {lesson.isExam && (
+              <div>
+                <h3 className="font-medium mb-2">Exam Details</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
+                  <div className="bg-muted p-2 rounded-md">
+                    <span className="text-sm font-medium">Total Marks:</span>
+                    <span className="text-sm ml-2">{lesson.totalMarks}</span>
+                  </div>
+                  <div className="bg-muted p-2 rounded-md">
+                    <span className="text-sm font-medium">Passing Marks:</span>
+                    <span className="text-sm ml-2">{lesson.passingMarks}</span>
+                  </div>
+                </div>
+
+                {lesson.questions && lesson.questions.length > 0 && (
+                  <div>
+                    <h4 className="font-medium mb-2">
+                      Questions ({lesson.questions.length})
+                    </h4>
+                    <div className="space-y-3">
+                      {lesson.questions.map((question, index) => (
+                        <div
+                          key={question.id}
+                          className="border rounded-md p-3"
+                        >
+                          <div className="flex justify-between">
+                            <span className="font-medium">
+                              Q{index + 1}. {question.question}
+                            </span>
+                            <span className="text-sm bg-primary/10 text-primary px-2 py-0.5 rounded">
+                              {question.marks} marks
+                            </span>
+                          </div>
+                          <div className="text-sm text-muted-foreground mt-1">
+                            Type: {question.type}
+                          </div>
+
+                          {question.type === "multiple-choice" &&
+                            question.options && (
+                              <div className="mt-2 space-y-1">
+                                {question.options.map((option, i) => (
+                                  <div
+                                    key={i}
+                                    className="flex items-center gap-2"
+                                  >
+                                    <div
+                                      className={`h-2 w-2 rounded-full ${option === question.correctAnswer ? "bg-green-500" : "bg-muted-foreground"}`}
+                                    ></div>
+                                    <span
+                                      className={
+                                        option === question.correctAnswer
+                                          ? "font-medium"
+                                          : ""
+                                      }
+                                    >
+                                      {option}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+
+                          {question.type === "true-false" && (
+                            <div className="mt-2">
+                              <span className="text-sm">Correct answer: </span>
+                              <span className="text-sm font-medium">
+                                {question.correctAnswer}
+                              </span>
+                            </div>
+                          )}
+
+                          {(question.type === "short-answer" ||
+                            question.type === "essay") &&
+                            question.correctAnswer && (
+                              <div className="mt-2">
+                                <span className="text-sm">Model answer: </span>
+                                <span className="text-sm italic">
+                                  {question.correctAnswer}
+                                </span>
+                              </div>
+                            )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </CardContent>
         </Card>
 

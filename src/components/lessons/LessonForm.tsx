@@ -375,6 +375,197 @@ export default function LessonForm({ initialData, onSubmit }: LessonFormProps) {
               ))}
             </div>
           </div>
+
+          {showExamFields && (
+            <div className="space-y-4 mt-6 border-t pt-4">
+              <h3 className="font-medium text-lg">Exam Settings</h3>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="totalMarks">Total Marks</Label>
+                  <Input
+                    id="totalMarks"
+                    name="totalMarks"
+                    type="number"
+                    min="0"
+                    value={formData.totalMarks}
+                    onChange={handleNumberChange}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="passingMarks">Passing Marks</Label>
+                  <Input
+                    id="passingMarks"
+                    name="passingMarks"
+                    type="number"
+                    min="0"
+                    value={formData.passingMarks}
+                    onChange={handleNumberChange}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label>Questions</Label>
+                <div className="space-y-4 mt-2 border p-4 rounded-md">
+                  <div className="space-y-3">
+                    <div>
+                      <Label htmlFor="question">Question</Label>
+                      <Textarea
+                        id="question"
+                        name="question"
+                        value={newQuestion.question}
+                        onChange={handleQuestionChange}
+                        placeholder="Enter question text"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="questionType">Question Type</Label>
+                        <Select
+                          value={newQuestion.type}
+                          onValueChange={handleQuestionTypeChange}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="multiple-choice">
+                              Multiple Choice
+                            </SelectItem>
+                            <SelectItem value="short-answer">
+                              Short Answer
+                            </SelectItem>
+                            <SelectItem value="essay">Essay</SelectItem>
+                            <SelectItem value="true-false">
+                              True/False
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="marks">Marks</Label>
+                        <Input
+                          id="marks"
+                          name="marks"
+                          type="number"
+                          min="1"
+                          value={newQuestion.marks}
+                          onChange={handleQuestionMarksChange}
+                        />
+                      </div>
+                    </div>
+
+                    {newQuestion.type === "multiple-choice" && (
+                      <div className="space-y-2">
+                        <Label>Options</Label>
+                        {newQuestion.options?.map((option, index) => (
+                          <div key={index} className="flex items-center gap-2">
+                            <Input
+                              value={option}
+                              onChange={(e) =>
+                                handleOptionChange(index, e.target.value)
+                              }
+                              placeholder={`Option ${index + 1}`}
+                            />
+                            <Button
+                              type="button"
+                              variant={
+                                newQuestion.correctAnswer === option
+                                  ? "default"
+                                  : "outline"
+                              }
+                              size="icon"
+                              onClick={() => handleCorrectAnswerChange(option)}
+                              title="Set as correct answer"
+                            >
+                              <Check className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {newQuestion.type === "true-false" && (
+                      <div>
+                        <Label>Correct Answer</Label>
+                        <Select
+                          value={newQuestion.correctAnswer}
+                          onValueChange={handleCorrectAnswerChange}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select correct answer" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="True">True</SelectItem>
+                            <SelectItem value="False">False</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    )}
+
+                    {(newQuestion.type === "short-answer" ||
+                      newQuestion.type === "essay") && (
+                      <div>
+                        <Label htmlFor="correctAnswer">
+                          Model Answer (Optional)
+                        </Label>
+                        <Textarea
+                          id="correctAnswer"
+                          name="correctAnswer"
+                          value={newQuestion.correctAnswer || ""}
+                          onChange={handleQuestionChange}
+                          placeholder="Enter model answer"
+                        />
+                      </div>
+                    )}
+
+                    <Button
+                      type="button"
+                      onClick={handleAddQuestion}
+                      className="w-full"
+                    >
+                      <Plus className="h-4 w-4 mr-2" /> Add Question
+                    </Button>
+                  </div>
+                </div>
+
+                {formData.questions && formData.questions.length > 0 && (
+                  <div className="mt-4">
+                    <h4 className="font-medium mb-2">
+                      Added Questions ({formData.questions.length})
+                    </h4>
+                    <div className="space-y-2 max-h-96 overflow-y-auto">
+                      {formData.questions.map((q) => (
+                        <div
+                          key={q.id}
+                          className="flex items-center justify-between bg-muted p-3 rounded-md"
+                        >
+                          <div className="flex-1">
+                            <div className="font-medium">{q.question}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {q.type} • {q.marks} marks
+                            </div>
+                          </div>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleRemoveQuestion(q.id)}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </form>

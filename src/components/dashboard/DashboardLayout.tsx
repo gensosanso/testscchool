@@ -27,6 +27,7 @@ import {
   DollarSign,
   BarChart,
   Home,
+  FileText,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
@@ -89,6 +90,16 @@ export default function DashboardLayout({
         icon: <BookOpen className="h-5 w-5" />,
       },
       {
+        name: "Assignments",
+        href: "/dashboard/assignments",
+        icon: <FileText className="h-5 w-5" />,
+      },
+      {
+        name: "Exams",
+        href: "/dashboard/exams",
+        icon: <FileText className="h-5 w-5" />,
+      },
+      {
         name: "Schedule",
         href: "/dashboard/schedule",
         icon: <Calendar className="h-5 w-5" />,
@@ -99,6 +110,11 @@ export default function DashboardLayout({
         icon: <DollarSign className="h-5 w-5" />,
       },
       {
+        name: "Attendance",
+        href: "/dashboard/attendance",
+        icon: <Users className="h-5 w-5" />,
+      },
+      {
         name: "Reports",
         href: "/dashboard/reports",
         icon: <BarChart className="h-5 w-5" />,
@@ -107,6 +123,11 @@ export default function DashboardLayout({
         name: "Messages",
         href: "/dashboard/messages",
         icon: <MessageSquare className="h-5 w-5" />,
+      },
+      {
+        name: "Announcements",
+        href: "/dashboard/announcements",
+        icon: <Bell className="h-5 w-5" />,
       },
       {
         name: "Settings",
@@ -136,6 +157,16 @@ export default function DashboardLayout({
         icon: <BookOpen className="h-5 w-5" />,
       },
       {
+        name: "Assignments",
+        href: "/dashboard/assignments",
+        icon: <FileText className="h-5 w-5" />,
+      },
+      {
+        name: "Exams",
+        href: "/dashboard/exams",
+        icon: <FileText className="h-5 w-5" />,
+      },
+      {
         name: "Grades",
         href: "/dashboard/grades",
         icon: <BarChart className="h-5 w-5" />,
@@ -154,6 +185,11 @@ export default function DashboardLayout({
         name: "Messages",
         href: "/dashboard/messages",
         icon: <MessageSquare className="h-5 w-5" />,
+      },
+      {
+        name: "Announcements",
+        href: "/dashboard/announcements",
+        icon: <Bell className="h-5 w-5" />,
       },
       {
         name: "Settings",
@@ -183,6 +219,16 @@ export default function DashboardLayout({
         icon: <BookOpen className="h-5 w-5" />,
       },
       {
+        name: "Assignments",
+        href: "/dashboard/assignments",
+        icon: <FileText className="h-5 w-5" />,
+      },
+      {
+        name: "Exams",
+        href: "/dashboard/exams",
+        icon: <FileText className="h-5 w-5" />,
+      },
+      {
         name: "My Grades",
         href: "/dashboard/grades",
         icon: <BarChart className="h-5 w-5" />,
@@ -190,12 +236,17 @@ export default function DashboardLayout({
       {
         name: "Assignments",
         href: "/dashboard/assignments",
-        icon: <BookOpen className="h-5 w-5" />,
+        icon: <FileText className="h-5 w-5" />,
       },
       {
         name: "Messages",
         href: "/dashboard/messages",
         icon: <MessageSquare className="h-5 w-5" />,
+      },
+      {
+        name: "Announcements",
+        href: "/dashboard/announcements",
+        icon: <Bell className="h-5 w-5" />,
       },
       {
         name: "Settings",
@@ -225,6 +276,16 @@ export default function DashboardLayout({
         icon: <BookOpen className="h-5 w-5" />,
       },
       {
+        name: "Assignments",
+        href: "/dashboard/assignments",
+        icon: <FileText className="h-5 w-5" />,
+      },
+      {
+        name: "Exams",
+        href: "/dashboard/exams",
+        icon: <FileText className="h-5 w-5" />,
+      },
+      {
         name: "Grades",
         href: "/dashboard/grades",
         icon: <BarChart className="h-5 w-5" />,
@@ -243,6 +304,11 @@ export default function DashboardLayout({
         name: "Messages",
         href: "/dashboard/messages",
         icon: <MessageSquare className="h-5 w-5" />,
+      },
+      {
+        name: "Announcements",
+        href: "/dashboard/announcements",
+        icon: <Bell className="h-5 w-5" />,
       },
       {
         name: "Settings",

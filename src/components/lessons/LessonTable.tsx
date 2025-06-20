@@ -34,6 +34,7 @@ export default function LessonTable({
 }: LessonTableProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [typeFilter, setTypeFilter] = useState<string>("all");
   const [filteredLessons, setFilteredLessons] = useState<Lesson[]>(lessons);
 
   useEffect(() => {
@@ -45,11 +46,16 @@ export default function LessonTable({
       const matchesStatus =
         statusFilter === "all" || lesson.status === statusFilter;
 
-      return matchesSearch && matchesStatus;
+      const matchesType =
+        typeFilter === "all" ||
+        (typeFilter === "exam" && lesson.isExam) ||
+        (typeFilter === "lesson" && !lesson.isExam);
+
+      return matchesSearch && matchesStatus && matchesType;
     });
 
     setFilteredLessons(filtered);
-  }, [lessons, searchTerm, statusFilter]);
+  }, [lessons, searchTerm, statusFilter, typeFilter]);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -86,6 +92,17 @@ export default function LessonTable({
               <SelectItem value="scheduled">Scheduled</SelectItem>
               <SelectItem value="completed">Completed</SelectItem>
               <SelectItem value="cancelled">Cancelled</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={typeFilter} onValueChange={setTypeFilter}>
+            <SelectTrigger className="w-full sm:w-[180px]">
+              <SelectValue placeholder="Filter by type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Types</SelectItem>
+              <SelectItem value="lesson">Lessons Only</SelectItem>
+              <SelectItem value="exam">Exams Only</SelectItem>
             </SelectContent>
           </Select>
         </div>
