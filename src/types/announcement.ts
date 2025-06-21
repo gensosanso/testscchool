@@ -29,5 +29,5 @@ export interface AnnouncementFormData {
   targetAudience: ("admin" | "teacher" | "student" | "parent")[];
   publishedAt?: string;
   expiresAt?: string;
-  status: "draft" | "published";
+  status: "draft" | "published" | "archived";
 }
