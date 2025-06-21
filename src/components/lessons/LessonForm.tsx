@@ -14,11 +14,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, Plus, X } from "lucide-react";
+import { ArrowLeft, Plus, X, Check } from "lucide-react";
 import Link from "next/link";
 import { subjectService } from "@/services/subjectService";
 import { teacherService } from "@/services/teacherService";
 import { classService } from "@/services/classService";
+import { ExamQuestion } from "@/types/lesson";
 
 interface LessonFormProps {
   initialData?: Lesson;
@@ -46,6 +47,10 @@ export default function LessonForm({ initialData, onSubmit }: LessonFormProps) {
           materials: [...initialData.materials],
           objectives: [...initialData.objectives],
           status: initialData.status,
+          isExam: initialData.isExam || false,
+          totalMarks: initialData.totalMarks || 0,
+          passingMarks: initialData.passingMarks || 0,
+          questions: initialData.questions ? [...initialData.questions] : [],
         }
       : {
           title: "",
@@ -59,11 +64,25 @@ export default function LessonForm({ initialData, onSubmit }: LessonFormProps) {
           materials: [],
           objectives: [],
           status: "scheduled",
+          isExam: false,
+          totalMarks: 0,
+          passingMarks: 0,
+          questions: [],
         },
   );
 
   const [newMaterial, setNewMaterial] = useState("");
   const [newObjective, setNewObjective] = useState("");
+  const [showExamFields, setShowExamFields] = useState(
+    initialData?.isExam || false,
+  );
+  const [newQuestion, setNewQuestion] = useState<Omit<ExamQuestion, "id">>({
+    question: "",
+    marks: 1,
+    type: "multiple-choice",
+    options: ["", "", "", ""],
+    correctAnswer: "",
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,6 +111,75 @@ export default function LessonForm({ initialData, onSubmit }: LessonFormProps) {
 
   const handleSelectChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: parseInt(value) || 0 }));
+  };
+
+  const handleQuestionChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    setNewQuestion((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleQuestionTypeChange = (value: string) => {
+    const type = value as ExamQuestion["type"];
+    setNewQuestion((prev) => ({
+      ...prev,
+      type,
+      options: type === "multiple-choice" ? ["", "", "", ""] : undefined,
+      correctAnswer: "",
+    }));
+  };
+
+  const handleQuestionMarksChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setNewQuestion((prev) => ({
+      ...prev,
+      marks: parseInt(e.target.value) || 1,
+    }));
+  };
+
+  const handleOptionChange = (index: number, value: string) => {
+    setNewQuestion((prev) => ({
+      ...prev,
+      options: prev.options?.map((opt, i) => (i === index ? value : opt)),
+    }));
+  };
+
+  const handleCorrectAnswerChange = (value: string) => {
+    setNewQuestion((prev) => ({ ...prev, correctAnswer: value }));
+  };
+
+  const handleAddQuestion = () => {
+    if (newQuestion.question.trim()) {
+      const questionWithId: ExamQuestion = {
+        ...newQuestion,
+        id: Date.now().toString(),
+      };
+      setFormData((prev) => ({
+        ...prev,
+        questions: [...(prev.questions || []), questionWithId],
+      }));
+      setNewQuestion({
+        question: "",
+        marks: 1,
+        type: "multiple-choice",
+        options: ["", "", "", ""],
+        correctAnswer: "",
+      });
+    }
+  };
+
+  const handleRemoveQuestion = (questionId: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      questions: prev.questions?.filter((q) => q.id !== questionId) || [],
+    }));
   };
 
   const handleAddMaterial = () => {
@@ -300,6 +388,20 @@ export default function LessonForm({ initialData, onSubmit }: LessonFormProps) {
                 <SelectItem value="cancelled">Cancelled</SelectItem>
               </SelectContent>
             </Select>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="isExam"
+              checked={formData.isExam}
+              onChange={(e) => {
+                const isExam = e.target.checked;
+                setFormData((prev) => ({ ...prev, isExam }));
+                setShowExamFields(isExam);
+              }}
+            />
+            <Label htmlFor="isExam">This is an exam</Label>
           </div>
 
           <div>
