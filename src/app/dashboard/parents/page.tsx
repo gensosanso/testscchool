@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { getParents } from "@/services/parentService";
 import ParentTable from "@/components/parents/ParentTable";
+import { Parent } from "@/types/parent";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,7 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { UserPlus, Users } from "lucide-react";
 
 export default function ParentsPage() {
-  const [parents, setParents] = useState([]);
+  const [parents, setParents] = useState<Parent[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
